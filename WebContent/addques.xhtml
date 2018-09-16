@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Add Question</title>
+<link rel="stylesheet" href="resources/css/general.css"/>
+<style>
+	.mider{
+		position:relative;
+		width:800px;
+		height:500px;
+		margin:0px auto;
+		text-align:cenetr;
+	}
+	.mider #select{
+		margin:0;
+	}
+	.mider #content{
+	   margin:20px 0;
+	}
+</style>
+</head>
+<body>
+	<div class="mider">
+	<h:form>
+		<div id="select">
+			<p><strong>科目 </strong>
+				<h:selectOneMenu id="subject" value="#{quesBean.subject}">
+					<f:selectItems value="#{quesBean.subjn2c}"></f:selectItems>
+				</h:selectOneMenu>
+			</p>
+			<p>
+				<strong>题目类型 </strong>
+				<h:selectOneMenu id="category" value="#{quesBean.category}">
+					<f:selectItems value="#{quesBean.caten2c}"></f:selectItems>
+				</h:selectOneMenu>
+			</p>
+		</div>
+		<div id="content">
+			<h4>题目</h4>
+			<p>	
+				<h:inputTextarea id="ques" value="#{quesBean.question}" required="true" requiredMessage="The question is empty" cols="100" rows="20"/>
+				<h:message for="ques" errorStyle="color:red; display:block;"></h:message>
+			</p>
+			<h4>答案</h4>
+			<p>
+				<h:inputTextarea id="solu" value="#{quesBean.solution}" required="true" requiredMessage="The solution is empty" cols="90" rows="15"></h:inputTextarea>
+				<h:message for="solu" errorStyle="color:red; display:block;"></h:message>
+			</p>
+			<p>
+				<h:commandButton value="提交" action="#{quesBean.add()}"/>
+			</p>
+			
+		</div>
+		</h:form>
+	</div>
+</body>
+</html>

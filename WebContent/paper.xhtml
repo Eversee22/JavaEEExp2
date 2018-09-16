@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Paper</title>
+<link rel="stylesheet" href="resources/css/general.css"/>
+<link rel="stylesheet" href="resources/css/header.css"/>
+<link rel="stylesheet" href="resources/css/divide3.css"/>
+<style>
+	.header .mainNavigation{
+		right:0;
+	}
+	.header h1{
+		text-align:center;
+	}
+	.header .mainNavigation li{
+		padding:20px;
+		color:green;
+		float:right;
+	}
+	.header .topNavigation{
+		left:0;
+	}
+	.header .topNavigation li{
+		padding:0 10px;
+	}
+	.mider .left{
+		width:10px;
+		background:#E9E9E9;
+	}
+	.mider .right{
+		width:10px;
+		background:#E9E9E9;
+	}
+	.mider .center{
+		margin-left:12px;
+		margin-right:12px;
+		padding:5px;
+	}
+	
+	.mider .center td{
+		color:black;
+		padding:5px 20px;
+	}
+</style>
+</head>
+<body>
+	<div class="header">
+		<h1><span><h:outputText value="#{studentBean.paperTitle}"/></span></h1>
+		<ul class="mainNavigation">
+			<li><strong><h:outputText value="#{studentBean.examDate}"/></strong></li>
+			<li><strong><h:outputText value="#{studentBean.examName}" rendered="#{studentBean.examHRender}"/></strong></li>
+			<li><strong><h:outputLabel value="Mark:" rendered="#{studentBean.examHRender}"/><h:outputText value="#{studentBean.examMark}" rendered="#{studentBean.examHRender}"/></strong></li>
+			<li><strong><h:outputLabel value="Rank:" rendered="#{studentBean.examHRender}"/><h:outputText value="#{studentBean.examRank}" rendered="#{studentBean.examHRender}"/></strong></li>
+		</ul>
+		<ul class="topNavigation">
+			<h:form>
+				<li><h:commandLink value="首页" action="/index.xhtml" rendered="#{studentBean.examHRender}"/></li>
+				<li><h:commandLink value="收藏" action="#{studentBean.likePaper()}" rendered="#{studentBean.examHRender}"/></li>
+				<li><h:commandLink value="开始考试" action="#{studentBean.startExam()}" rendered="#{studentBean.examHRender}"/></li>
+			</h:form>
+		</ul>
+	</div>
+	<div class="mider">
+		<div class="left"></div>
+		<div class="center">
+		<h:form>
+			<h:dataTable value="#{studentBean.paperQwList}" border="0" var="pq">
+				<h:column>
+					<h:outputLabel value="#{pq.quesnum}."/><h:outputLabel value="(#{pq.score})"/><h:outputText value="#{pq.content}"/>
+				</h:column>
+				<h:column>
+					<h:inputTextarea value="#{pq.solu}" required="true" rendered="#{studentBean.examRender}"/>
+				</h:column>
+				<h:column>
+					<h:outputText value="#{pq.solu}" rendered="#{studentBean.examOverRender}"/>
+				</h:column>
+				<h:column>
+					<h:outputText value="#{pq.check}" style="color: red" rendered="#{studentBean.examOverRender}"/>
+				</h:column>
+				<h:column>
+					<h:outputText value="#{pq.solution}" style="color: green" rendered="#{studentBean.examOverRender}"></h:outputText>
+				</h:column>
+				<h:column>
+					<h:commandLink value="收藏" action="#{studentBean.likeQues(pq.ep)}" rendered="#{studentBean.examOverRender}"></h:commandLink>
+				</h:column>
+			</h:dataTable>
+			<p><h:commandButton value="提交" action="#{studentBean.overExam()}" rendered="#{studentBean.examRender}"/></p>
+		</h:form>
+		</div>
+		<div class="right"></div>
+	</div>
+</body>
+</html>
